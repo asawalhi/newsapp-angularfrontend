@@ -1,0 +1,278 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Update 24x7</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="openHomeView()" >Home <span class="sr-only">(current)</span></a>
+        </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" (click)="openSportsView()">Sports</a>
+        </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item dropdown">
+          <a class="nav-link" (click)="openAboutusView()">About Us</a>
+        </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" (click)="openContactusView()">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+    <span style="float: right;">
+      <a class="nav-link" routerLink="/admin">Admin</a>
+    </span>
+</nav>
+
+<!--Home View-->
+<div *ngIf="homeView" class = "container" style = "padding-top: 15px ;">
+    <!--Weather-->
+    <div class="bg-light">
+        <h5 class="text-center">Weather Report <br>{{ weatherForecastData?.city.name }}, {{ weatherForecastData?.city.country }}</h5>
+        <br>
+        <div class="row">
+            <div class="col-sm">
+                <h6>{{ weatherForecastData?.list[0].dt_txt | date:'EEE, MMMM dd '}}</h6>
+                <div *ngIf="weatherForecastData?.list[0].weather[0].description !='heavy intensity rain'"><img src="assets/images/{{ weatherForecastData?.list[0].weather[0].main }}.png" alt="" /></div>
+                <div *ngIf="weatherForecastData?.list[0].weather[0].description =='heavy intensity rain'"><img src="assets/images/ThunderIcon.png" alt="" /></div>    
+                <p>{{ weatherForecastData?.list[0].weather[0].description | titlecase   }}</p>
+                <p>Temp: {{ weatherForecastData?.list[0].main.temp | number: '1.0-0' }}° C</p>
+            </div>
+            <div class="col-sm">
+                <h6>{{ weatherForecastData?.list[8].dt_txt | date:'EEE, MMMM dd '}}</h6>
+                <div> <img src="assets/images/{{ weatherForecastData?.list[8].weather[0].main }}.png" alt="" /></div>
+                <p>{{ weatherForecastData?.list[8].weather[0].description | titlecase   }}</p>
+                <p>Temp: {{ weatherForecastData?.list[8].main.temp | number: '1.0-0' }}° C</p>
+            </div>
+            <div class="col-sm">
+                <h6>{{ weatherForecastData?.list[16].dt_txt | date:'EEE, MMMM dd '}}</h6>
+                <div> <img src="assets/images/{{ weatherForecastData?.list[16].weather[0].main }}.png" alt="" /></div>
+                <p>{{ weatherForecastData?.list[16].weather[0].description | titlecase   }}</p>
+                <p>Temp: {{ weatherForecastData?.list[16].main.temp | number: '1.0-0' }}° C</p>
+            </div>
+            <div class="col-sm">
+                <h6>{{ weatherForecastData?.list[24].dt_txt | date:'EEE, MMMM dd '}}</h6>
+                <div> <img src="assets/images/{{ weatherForecastData?.list[24].weather[0].main }}.png" alt="" /></div>
+                <p>{{ weatherForecastData?.list[24].weather[0].description | titlecase   }}</p>
+                <p>Temp: {{ weatherForecastData?.list[24].main.temp | number: '1.0-0' }}°</p>
+            </div>
+            <div class="col-sm">
+                <h6>{{ weatherForecastData?.list[32].dt_txt | date:'EEE, MMMM dd '}}</h6>
+                <div> <img src="assets/images/{{ weatherForecastData?.list[32].weather[0].main }}.png" alt="" /></div>
+                <p>{{ weatherForecastData?.list[32].weather[0].description | titlecase   }}</p>
+                <p>Temp: {{ weatherForecastData?.list[32].main.temp | number: '1.0-0' }}° C</p>
+            </div>
+        </div>
+    </div><br>
+
+    <!--Img Slider-->
+    <div class = "container">
+        <div id="carouselExampleIndicators" class="carousel slide row" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src={{firstNewsArticle.img}} alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src={{secondNewsArticle.img}} alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src={{thirdNewsArticle.img}} alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+    </div><br>
+    
+    <!--Last 3 News-->
+    <div class="container">
+        <div class="row">
+            &nbsp;&nbsp;
+            <div class="card">
+                <h6 class="card-header text-center">{{firstNewsArticle.title}}</h6>
+                <div class="card-body">
+                    <p>Written by: {{firstNewsArticle.author}}</p>
+                    <p>Written at: {{firstNewsArticle.Date | date:'medium'}}</p>
+                    <div class="card text-center">
+                        <p>{{firstNewsArticle.article}}</p>
+                    </div>
+                </div>
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="card">
+                <h6 class="card-header text-center">{{secondNewsArticle.title}}</h6>
+                <div class="card-body">
+                    <p>Written by: {{secondNewsArticle.author}}</p>
+                    <p>Written at: {{secondNewsArticle.Date | date:'medium'}}</p>
+                    <div class="card text-center">
+                        <p>{{secondNewsArticle.article}}</p>
+                    </div>
+                </div>
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="card">
+                <h6 class="card-header text-center">{{thirdNewsArticle.title}}</h6>
+                <div class="card-body">
+                    <p>Written by: {{thirdNewsArticle.author}}</p>
+                    <p>Written at: {{thirdNewsArticle.Date | date:'medium'}}</p>
+                    <div class="card text-center">
+                        <p>{{thirdNewsArticle.article}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <!--Story-->
+    <div class="container">
+        <div class="text-center">
+            <div class="card">
+                <p>{{thirdNewsArticle.article}}</p>
+            </div>
+        </div>
+    </div>
+    <!--ChatBox-->
+    <div class="container">
+
+    </div>
+</div>
+
+
+<!--Sports View-->
+<div *ngIf="sportsView" class = "container text-center" style="padding-top: 35px ;">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class = "card mb-4 shadow-sm">
+        <h5 class = "card-header">{{firstSportsType.strSport}}</h5>
+        <div class="card-body">
+          <img src={{firstSportsType.strSportThumb}}>
+          <p style="text-overflow: ellipsis;">Format: {{firstSportsType.strFormat}}</p>
+          <button class="btn btn-info" (click)="openfirstSportsTypeDtls()">More Details</button>
+          <div *ngIf = "firstSportsTypeDtlsView">
+            <br>
+            <p>{{firstSportsType.strSportDescription}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "card mb-4 shadow-sm">
+        <h5 class = "card-header">{{secondSportsType.strSport}}</h5>
+        <div class="card-body">
+          <img src={{secondSportsType.strSportThumb}}>
+          <p style="text-overflow: ellipsis;">Format: {{secondSportsType.strFormat}}</p>
+          <button class="btn btn-info" (click)="opensecondSportsTypeDtls()">More Details</button>
+          <div *ngIf = "secondSportsTypeDtlsView">
+            <br>
+            <p>{{secondSportsType.strSportDescription}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "card mb-4 shadow-sm">
+        <h5 class = "card-header">{{thirdSportsType.strSport}}</h5>
+        <div class="card-body">
+          <img src={{thirdSportsType.strSportThumb}}>
+          <p style="text-overflow: ellipsis;">Format: {{thirdSportsType.strFormat}}</p>
+          <button class="btn btn-info" (click)="openthirdSportsTypeDtls()">More Details</button>
+          <div *ngIf = "thirdSportsTypeDtlsView">
+            <br>
+            <p>{{thirdSportsType.strSportDescription}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--About Us-->
+<div *ngIf="aboutusView" class="container" style="padding-top: 50px; padding-bottom: 50px">
+  <div class="row">
+    <img src="assets/images/googlemaps.png" width="500" height="400">
+    <div style="padding-left: 40px">
+      <h4>Update 24/7</h4><br>
+      <p>Dallas, TX</p>
+      <p>When it comes to News, we are the best!</p>
+      <p>Phone numebr: 817-009-0007</p>
+    </div>
+  </div>
+</div>
+
+
+<!--Contact Us-->
+<div *ngIf="contactusView" class="container" style="padding-top: 50px; padding-bottom: 50px">
+  <div class="card">
+    <h4 class="card-header">Contact Us</h4>
+    <div class="card-body">
+      <form [formGroup]="contactUsFrom" (ngSubmit)="contactUsSubmit()">
+        <div class="form-group">
+          <label for="emailAddress">Email Address: </label>
+          <input type="text" formControlName="emailAddress" class="form-control" name="emailAddress">
+        </div>
+        <div class="form-group">
+          <label for="query">Query: </label>
+          <input type="text" formControlName="query" class="form-control" name="query">
+        </div>
+        <div>
+          <button class="btn btn-primary" type="submit">Send</button> &nbsp;&nbsp;
+          <button class="btn btn-danger" type="reset">Clear</button>
+        </div>
+      </form>
+    </div>
+    </div>
+</div>
+
+
+
+<!--Footer-->
+<hr>
+<footer class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <h4>Update 24x7</h4>
+        <small class="d-block mb-3 text-muted">&copy; 2021</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Cool stuff</a></li>
+          <li><a class="text-muted" href="#">Random feature</a></li>
+          <li><a class="text-muted" href="#">Team feature</a></li>
+          <li><a class="text-muted" href="#">Stuff for developers</a></li>
+          <li><a class="text-muted" href="#">Another one</a></li>
+          <li><a class="text-muted" href="#">Last time</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Resource</a></li>
+          <li><a class="text-muted" href="#">Resource name</a></li>
+          <li><a class="text-muted" href="#">Another resource</a></li>
+          <li><a class="text-muted" href="#">Final resource</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Business</a></li>
+          <li><a class="text-muted" href="#">Education</a></li>
+          <li><a class="text-muted" href="#">Government</a></li>
+          <li><a class="text-muted" href="#">Gaming</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Team</a></li>
+          <li><a class="text-muted" href="#">Locations</a></li>
+          <li><a class="text-muted" href="#">Privacy</a></li>
+          <li><a class="text-muted" href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>

@@ -1,0 +1,201 @@
+<div class="container">
+    <h2 class="text-center">
+        Admin Menu
+    </h2><br>
+    <div class = "container text-center">
+        <button class = "btn btn-primary" routerLink= "/">Back to Update 24X7 Home</button> &nbsp;&nbsp;
+        <button class = "btn btn-primary"(click) = "backToAllNewsView()">Edit News</button> &nbsp;&nbsp;
+        <button class = "btn btn-primary" (click) = "openAddNewsView()">Add News</button> &nbsp;&nbsp;
+        <button class = "btn btn-primary" (click) = "openAddNewUser()">Add User</button> &nbsp;&nbsp;
+        <button class= "btn btn-danger" (click) = "logout()">Log Out</button>
+    </div>
+
+    <!--News List-->
+    <div *ngIf="allnewsView" class="col-lg-12 mt-5">
+        <div class="card">
+            <h4 class="card-header text-center">All News List</h4>
+            <div class="card-body">
+                <h6 class="text-center">Current News Articles</h6>
+                <div class="table-responsive">
+                    <table  class="table table-hover table-striped" id="myTable">
+                        <caption>List of News items</caption>
+                    <thead class = "thead-dark">
+                        <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Article</th>
+                        <th>Published At</th>
+                        <th>Img URL</th>
+                        <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let x of allnewsResults">
+                    <tr>
+                        <td>{{x.id}}</td>
+                        <td>{{x.title}}</td>
+                        <td>{{x.author}}</td>
+                        <td>{{x.article}}</td>
+                        <td>{{x.Date | date:'medium'}}</td>
+                        <td>{{x.img}}</td>
+                        <td>
+                            <button (click)="openEditArticle(x)"class = "btn btn-info">
+                                Edit
+                            </button>
+                            <button (click)="deleteArticle(x)" class = "btn btn-danger">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot class="thead-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Article</th>
+                            <th>Published At</th>
+                            <th>Img URL</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of News List-->
+
+
+
+    <!--Edit Atricle-->
+    <div *ngIf="editArticleView" class="container">
+        <div class="container">
+           <div class="card">
+               <h4 class="card-header">Edit Article</h4>
+               <div class="card-body">
+                    <form [formGroup]="editArticleForm" (ngSubmit)="editarticlSubmit()">
+                        <div class="form-group">
+                            <label for="editId">Id: </label>
+                            <input type="number" formControlName="editId" class="form-control" name="editId">
+                        </div>
+                        <div class="form-group">
+                            <label for="editTitle">Title: </label>
+                            <input type="text" formControlName="editTitle" class="form-control" name="editTitle">
+                        </div>
+                        <div class="form-group">
+                            <label for="editAuthor">Author: </label>
+                            <input type="text" formControlName="editAuthor" class="form-control" name="editAuthor">
+                        </div>
+                        <div class="form-group">
+                            <label for="editArticle">Article: </label>
+                            <input type="text" formControlName="editArticle" class="form-control" name="editArticle">
+                        </div>
+                        <div class="form-group">
+                            <label for="editImg">Img: </label>
+                            <input type="text" formControlName="editImg" class="form-control" name="editImg">
+                        </div>
+                        <div>
+                            <button class = "btn btn-primary" type="submit">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger">
+                                Clear
+                            </button>
+                            <span style="float: right;">
+                                <a class="text-right" (click) = "backToAllNewsView()">Back to All News</a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   <!--End Edit Atricle-->
+
+
+   <!--Add new Atricle-->
+   <div *ngIf="addnewsView" class="container">
+       <div class="card">
+           <h4 class="card-header">Add New Article</h4>
+           <div class="card-body">
+               <form [formGroup]="addArticleForm" (ngSubmit)="addarticlSubmit()">
+                   <div class="form-group">
+                       <label for="newId">Id: </label>
+                       <input type="number" formControlName="newId" class="form-control" name="newId">
+                    </div>
+                    <div class="form-group">
+                        <label for="newTitle">Title: </label>
+                        <input type="text" formControlName="newTitle" class="form-control" name="newTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="newAuthor">Author: </label>
+                        <input type="text" formControlName="newAuthor" class="form-control" name="newAuthor">
+                    </div>
+                    <div class="form-group">
+                        <label for="newArticle">Article: </label>
+                        <input type="text" formControlName="newArticle" class="form-control" name="newArticle">
+                    </div>
+                    <div class="form-group">
+                        <label for="newImg">Img: </label>
+                        <input type="text" formControlName="newImg" class="form-control" name="newImg">
+                    </div>
+                    <div>
+                        <button class = "btn btn-primary" type="submit">
+                            Submit
+                        </button>&nbsp;
+                        <button type="reset" class="btn btn-danger">
+                            Clear
+                        </button>
+                        <span style="float: right;">
+                            <a class="text-right" (click) = "backToAllNewsView()">Cancel</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <!--End of add new article-->
+
+
+    <!--Add new user-->
+    <div *ngIf="registerFormView" class="container">
+        <div class="col-md-6 offset-md-3 mt-5">
+           <div class="card">
+               <h4 class="card-header">User Sign up</h4>
+               <div class="card-body">
+                   <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+                       <div class="form-group">
+                           <label for="userNameReg">User Name</label>
+                           <input type="text" formControlName="userNameReg" class="form-control">
+                       </div>
+                       <div class="form-group">
+                           <label for ="emailReg">Email</label>
+                           <input type="email" formControlName="emailReg" class="form-control">
+                       </div>
+                       <div class="form-group">
+                           <label for = "passwordReg">Password</label>
+                           <input type="password" formControlName="passwordReg" class="form-control">
+                       </div>
+                       <button class="btn btn-primary">
+                           Sign Up
+                       </button> &nbsp;
+                       <button type="reset" class="btn btn-danger">
+                           Clear
+                       </button>
+                       <span style="float: right;">
+                           <a class="text-right" (click) = "backToAllNewsView()">Back to admin</a>
+                       </span>
+   
+                   </form>
+               </div>
+           </div>
+       </div>
+    </div>
+
+    <!--End of add user-->
+
+
+
+</div>
