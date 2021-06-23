@@ -52,4 +52,4 @@ jobs:
         app-name: 'sawalhi-ang'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_b225296d57f940539889c1b271b96770 }}
-        package: ./dist/hello-world-app
+        package: ./dist/firstang
