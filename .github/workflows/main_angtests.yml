@@ -24,8 +24,9 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm install
-        npm run build --if-present
-        npm run test --if-present
+        npm run build --prod
+      working-directory: .
+      
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
@@ -51,6 +52,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'angtests'
-        slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_16507f839e3040ef9428dc7174a83756 }}
-        package: .
+        package: ./dist/Update247
